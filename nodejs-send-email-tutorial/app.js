@@ -12,7 +12,7 @@ var nodemailer = require('nodemailer');
 var app = express();
 
 // all environments
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 8080);
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 app.use(express.favicon());
@@ -36,14 +36,14 @@ app.post('/contact', function (req, res) {
     smtpConfig = nodemailer.createTransport('SMTP', {
 		service: 'Gmail',
 		auth: {
-		user: "enterUrGmailIdHere@gmail.com",
-		pass: "EnterUrPasswordHere"
+		user: "a.guo.2010@gmail.com",
+		pass: "znkrfisbnbngqvlv"
     }
     });
     //construct the email sending module
     mailOpts = {
 		from: req.body.name + ' &lt;' + req.body.email + '&gt;',
-		to: 'enterUrGmailIdHere@gmail.com',
+		to: 'a.guo.2010@gmail.com',
 		subject: 'Website contact form',
 		text: req.body.message
     };
@@ -51,6 +51,7 @@ app.post('/contact', function (req, res) {
     smtpConfig.sendMail(mailOpts, function (error, response) {
     //Email not sent
     if (error) {
+       console.log(error);
        res.end("Email send Falied");
     }
     //email send sucessfully
